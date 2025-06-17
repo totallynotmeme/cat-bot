@@ -1,6 +1,6 @@
-# ![Cat Bot PFP](https://wsrv.nl/?url=raw.githubusercontent.com/milenakos/cat-bot/main/images/cat.png&h=25) Cat Bot [![top.gg](https://top.gg/api/widget/servers/966695034340663367.svg?noavatar=true)](https://top.gg/bot/966695034340663367) [![Discord Server](https://img.shields.io/discord/966586000417619998?label=discord&logo=discord)](https://discord.gg/cat-stand-966586000417619998) [![Wiki](https://img.shields.io/badge/Wiki-blue?label=Cat%20Bot&logo=wiki.js)](https://wiki.minkos.lol)
+# ![Rat Bot PFP](https://wsrv.nl/?url=raw.githubusercontent.com/milenakos/cat-bot/main/images/cat.png&h=25) Rat Bot [![top.gg](https://top.gg/api/widget/servers/966695034340663367.svg?noavatar=true)](https://top.gg/bot/966695034340663367) [![Discord Server](https://img.shields.io/discord/966586000417619998?label=discord&logo=discord)](https://discord.gg/cat-stand-966586000417619998) [![Wiki](https://img.shields.io/badge/Wiki-blue?label=Rat%20Bot&logo=wiki.js)](https://wiki.minkos.lol)
 
-Discord Cat Bot Source Code
+Discord Rat Bot Source Code
 
 # Development
 
@@ -42,4 +42,4 @@ Please note that self-hosting is hacky and isn't supported; instructions below a
 
 # License
 
-Cat Bot is licensed under GNU Affero General Public License v3.0 license. View `LICENSE` for more information.
+Rat Bot is licensed under GNU Affero General Public License v3.0 license. View `LICENSE` for more information.
