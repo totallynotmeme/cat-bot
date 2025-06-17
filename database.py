@@ -1,5 +1,5 @@
-# Cat Bot - A Discord bot about catching cats.
-# Copyright (C) 2025 Lia Milenakos & Cat Bot Contributors
+# Rat Bot - A Discord bot about ratching rats.
+# Copyright (C) 2025 Lia Milenakos & Rat Bot Contributors
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published
@@ -22,9 +22,9 @@ from tortoise import fields, Tortoise
 
 async def init():
     if config.DB_TYPE == "SQLITE":
-        db_url = "sqlite://catbot.db"
+        db_url = "sqlite://ratbot.db"
     elif config.DB_TYPE == "POSTGRES":
-        db_url = f"asyncpg://cat_bot:{config.DB_PASS}@localhost/cat_bot"
+        db_url = f"asyncpg://rat_bot:{config.DB_PASS}@localhost/rat_bot"
     await Tortoise.init(db_url=db_url, modules={"models": ["database"]})
     await Tortoise.generate_schemas(safe=True)
 
@@ -33,7 +33,7 @@ async def close():
     await Tortoise.close_connections()
 
 
-cattypes = [
+rattypes = [
     "Fine",
     "Nice",
     "Good",
@@ -73,11 +73,11 @@ class Profile(Model):
     user_id = fields.BigIntField()
     guild_id = fields.BigIntField(db_index=True)
 
-    time = fields.FloatField(default=99999999999999)  # fastest catch time
-    timeslow = fields.FloatField(default=0)  # slowest catch time
+    time = fields.FloatField(default=99999999999999)  # fastest ratch time
+    timeslow = fields.FloatField(default=0)  # slowest ratch time
 
-    timeout = fields.BigIntField(default=0)  # /preventcatch timestamp
-    cataine_active = fields.BigIntField(default=0)  # cataine timestamp
+    timeout = fields.BigIntField(default=0)  # /preventratch timestamp
+    rataine_active = fields.BigIntField(default=0)  # rataine timestamp
 
     dark_market_level = fields.SmallIntField(default=0)  # dark market level
     dark_market_active = fields.BooleanField(default=False)  # dark market unlocked bool
@@ -86,7 +86,7 @@ class Profile(Model):
     finale_seen = fields.BooleanField(default=False)  # whether the finale cutscene was seen
     debt_seen = fields.BooleanField(default=False)  # whether the debt cutscene was seen
 
-    cataine_week = fields.SmallIntField(default=0)  # light market purcashes this week
+    rataine_week = fields.SmallIntField(default=0)  # light market purcashes this week
     recent_week = fields.SmallIntField(default=0)  # the week
 
     funny = fields.IntField(default=0)  # private embed click amount
@@ -109,10 +109,10 @@ class Profile(Model):
     vote_reward = fields.SmallIntField(default=0)
     vote_cooldown = fields.BigIntField(default=1)
 
-    catch_quest = fields.CharField(default="", max_length=30)
-    catch_progress = fields.SmallIntField(default=0)
-    catch_cooldown = fields.BigIntField(default=1)
-    catch_reward = fields.SmallIntField(default=0)
+    ratch_quest = fields.CharField(default="", max_length=30)
+    ratch_progress = fields.SmallIntField(default=0)
+    ratch_cooldown = fields.BigIntField(default=1)
+    ratch_reward = fields.SmallIntField(default=0)
 
     misc_quest = fields.CharField(default="", max_length=30)
     misc_progress = fields.SmallIntField(default=0)
@@ -121,7 +121,7 @@ class Profile(Model):
 
     bp_history = fields.CharField(default="", max_length=2000)
 
-    reminder_catch = fields.BigIntField(default=0)  # timestamp of last catch reminder
+    reminder_ratch = fields.BigIntField(default=0)  # timestamp of last ratch reminder
     reminder_misc = fields.BigIntField(default=0)  # timestamp of last misc reminder
     # vote timestamp is in the User model
 
@@ -130,20 +130,20 @@ class Profile(Model):
     highlighted_stat = fields.CharField(default="time_records", max_length=30)
 
     # advanced stats
-    boosted_catches = fields.IntField(default=0)  # amount of catches boosted by prism
-    cataine_activations = fields.IntField(default=0)  # amount of cataine activations
-    cataine_bought = fields.IntField(default=0)  # amount of cataine bought
+    boosted_ratches = fields.IntField(default=0)  # amount of ratches boosted by prism
+    rataine_activations = fields.IntField(default=0)  # amount of rataine activations
+    rataine_bought = fields.IntField(default=0)  # amount of rataine bought
     quests_completed = fields.IntField(default=0)  # amount of quests completed
-    total_catches = fields.IntField(default=0)  # total amount of catches
-    total_catch_time = fields.BigIntField(default=0)  # total amount of time spent catching
+    total_ratches = fields.IntField(default=0)  # total amount of ratches
+    total_ratch_time = fields.BigIntField(default=0)  # total amount of time spent ratching
     perfection_count = fields.IntField(default=0)  # amount of perfection achievements
-    rain_participations = fields.IntField(default=0)  # amount of catches during rains
+    rain_participations = fields.IntField(default=0)  # amount of ratches during rains
     rain_minutes_started = fields.IntField(default=0)  # amount of rain minutes started
     reminders_set = fields.IntField(default=0)  # amount of reminders set
-    cats_gifted = CappedIntField(default=0)  # amount of cats gifted
-    cat_gifts_recieved = CappedIntField(default=0)  # amount of cat gifts recieved
+    rats_gifted = CappedIntField(default=0)  # amount of rats gifted
+    rat_gifts_recieved = CappedIntField(default=0)  # amount of rat gifts recieved
     trades_completed = fields.IntField(default=0)  # amount of trades completed
-    cats_traded = CappedIntField(default=0)  # amount of cats traded
+    rats_traded = CappedIntField(default=0)  # amount of rats traded
     ttt_played = fields.IntField(default=0)  # amount of times played the TTT
     ttt_won = fields.IntField(default=0)  # amount of TTT wins
     ttt_draws = fields.IntField(default=0)  # amount of TTT draws
@@ -160,9 +160,9 @@ class Profile(Model):
         setattr(self, item, value)
 
     # thanks chatgpt
-    # cat types
-    for cattype in cattypes:
-        locals()[f"cat_{cattype}"] = CappedIntField(default=0)
+    # rat types
+    for rattype in rattypes:
+        locals()[f"rat_{rattype}"] = CappedIntField(default=0)
 
     # aches
     with open("config/aches.json", "r") as f:
@@ -185,8 +185,8 @@ class User(Model):
     vote_time_topgg = fields.BigIntField(default=0)  # timestamp of last vote
     reminder_vote = fields.BigIntField(default=0)  # timestamp of last vote reminder
 
-    custom = fields.CharField(default="", max_length=50)  # custom cat name
-    custom_num = fields.IntField(default=1)  # custom cat amount
+    custom = fields.CharField(default="", max_length=50)  # custom rat name
+    custom_num = fields.IntField(default=1)  # custom rat amount
     emoji = fields.CharField(default="", max_length=10)  # /editprofile emoji
     color = fields.CharField(default="", max_length=10)  # /editprofile color
     image = fields.CharField(default="", max_length=500)  # /editprofile image
@@ -206,18 +206,18 @@ class User(Model):
 class Channel(Model):
     channel_id = fields.BigIntField(unique=True, db_index=True, primary_key=True)
 
-    cat = fields.BigIntField(default=0)  # cat message id
-    cattype = fields.CharField(default="", max_length=20)  # curently spawned cat type (parsed from msg if none)
-    forcespawned = fields.BooleanField(default=False)  # whether the current cat is forcespawned
+    rat = fields.BigIntField(default=0)  # rat message id
+    rattype = fields.CharField(default="", max_length=20)  # curently spawned rat type (parsed from msg if none)
+    forcespawned = fields.BooleanField(default=False)  # whether the current rat is forcespawned
 
     thread_mappings = fields.BooleanField(default=False)  # whether the channel is a thread
 
     spawn_times_min = fields.BigIntField(default=120)  # spawn times minimum
     spawn_times_max = fields.BigIntField(default=1200)  # spawn times maximum
 
-    lastcatches = fields.BigIntField(default=0)  # timestamp of last catch
-    yet_to_spawn = fields.BigIntField(default=0)  # timestamp of the next catch, if any
-    cat_rains = fields.BigIntField(default=0)  # timestamp of rain end, if any
+    lastratches = fields.BigIntField(default=0)  # timestamp of last ratch
+    yet_to_spawn = fields.BigIntField(default=0)  # timestamp of the next ratch, if any
+    rat_rains = fields.BigIntField(default=0)  # timestamp of rain end, if any
 
     appear = fields.CharField(default="", max_length=4000)
     cought = fields.CharField(default="", max_length=4000)
@@ -233,7 +233,7 @@ class Prism(Model):
     creator = fields.BigIntField()  # original crafter
     name = fields.CharField(max_length=20)  # name (duh)
 
-    catches_boosted = fields.IntField(default=0)  # amount of boosts from catches
+    ratches_boosted = fields.IntField(default=0)  # amount of boosts from ratches
 
     class Meta:
         indexes = (("user_id", "guild_id"),)
